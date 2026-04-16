@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodScribe - My Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; }
+
+        .navbar { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 15px 30px; }
+        .navbar-brand { font-size: 24px; font-weight: 700; color: #e74c3c !important; }
+        .nav-link { color: #333 !important; font-weight: 500; margin: 0 8px; }
+        .nav-link:hover { color: #e74c3c !important; }
+
+        .page-header { background: #e74c3c; color: white; padding: 15px 30px; font-size: 14px; }
+        .page-header a { color: white; text-decoration: none; }
+
+        .profile-section { padding: 50px 0; }
+
+        .profile-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 3px 20px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background: #e74c3c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+            margin: 0 auto 20px;
+        }
+
+        .profile-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+        }
+
+        .profile-email {
+            color: #999;
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
+            margin-bottom: 20px;
+        }
+        .stat-item { text-align: center; }
+        .stat-number {
+            font-size: 22px;
+            font-weight: 700;
+            color: #e74c3c;
+        }
+        .stat-label { font-size: 12px; color: #999; }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .menu-item:hover {
+            background: #fff5f5;
+            color: #e74c3c;
+        }
+        .menu-item i {
+            width: 35px;
+            color: #e74c3c;
+            font-size: 16px;
+        }
+        .menu-item span { font-weight: 500; }
+        .menu-item .arrow {
+            margin-left: auto;
+            color: #ccc;
+        }
+
+        .form-section h5 {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .form-control {
+            border-radius: 6px;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+        .form-control:focus {
+            border-color: #e74c3c;
+            box-shadow: 0 0 0 0.2rem rgba(231,76,60,0.15);
+        }
+        .form-control:disabled {
+            background: #f8f9fa;
+            color: #999;
+        }
+
+        .btn-update {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-update:hover { background: #c0392b; }
+
+        .subscription-card {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border-radius: 12px;
+            padding: 20px;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .subscription-card h6 { font-weight: 700; font-size: 16px; }
+        .subscription-card p { font-size: 13px; opacity: 0.9; margin: 0; }
+        .badge-active {
+            background: rgba(255,255,255,0.3);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .footer { background: #222; color: #aaa; text-align: center; padding: 25px; font-size: 14px; }
+        .footer span { color: #e74c3c; }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">FoodScribe</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="menu.html">Food Menu</a></li>
+                <li class="nav-item"><a class="nav-link" href="subscription.html">Subscription</a></li>
+                <li class="nav-item"><a class="nav-link" href="signup.html">Sign Up</a></li>
+                <li class="nav-item"><a class="nav-link" href="login.html">Sign In</a></li>
+                <li class="nav-item"><a class="nav-link" href="track.html">Track Order</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">My Account</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item active" href="profile.html">My Profile</a></li>
+                        <li><a class="dropdown-item" href="orders.html">My Orders</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#" onclick="logout()">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+    <a href="index.html">Home</a> / My Account / <strong>My Profile</strong>
+</div>
+
+<!-- PROFILE SECTION -->
+<section class="profile-section">
+    <div class="container">
+        <div class="row g-4">
+
+            <!-- LEFT SIDEBAR -->
+            <div class="col-md-4">
+
+                <!-- AVATAR CARD -->
+                <div class="profile-card text-center">
+                    <div class="profile-avatar" id="avatarIcon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="profile-name" id="profileName">Loading...</div>
+                    <div class="profile-email" id="profileEmail"></div>
+
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <div class="stat-number" id="totalOrders">0</div>
+                            <div class="stat-label">Orders</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="totalSubs">0</div>
+                            <div class="stat-label">Subscriptions</div>
+                        </div>
+                    </div>
+
+                    <a href="orders.html" class="menu-item">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>My Orders</span>
+                        <i class="fas fa-chevron-right arrow"></i>
+                    </a>
+                    <a href="subscription.html" class="menu-item">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>My Subscriptions</span>
+                        <i class="fas fa-chevron-right arrow"></i>
+                    </a>
+                    <a href="track.html" class="menu-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Track Order</span>
+                        <i class="fas fa-chevron-right arrow"></i>
+                    </a>
+                    <a href="#" onclick="logout()" class="menu-item text-danger">
+                        <i class="fas fa-sign-out-alt" style="color:#e74c3c"></i>
+                        <span>Logout</span>
+                        <i class="fas fa-chevron-right arrow"></i>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- RIGHT CONTENT -->
+            <div class="col-md-8">
+
+                <!-- PROFILE FORM -->
+                <div class="profile-card form-section">
+                    <h5><i class="fas fa-user-edit text-danger me-2"></i>My Profile</h5>
+
+                    <div id="alertMsg" style="display:none;" class="alert mb-3"></div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="First Name">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Mobile Number</label>
+                            <input type="text" class="form-control" id="mobile" disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Member Since</label>
+                            <input type="text" class="form-control" id="regDate" disabled>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <button class="btn-update" onclick="updateProfile()">
+                                <i class="fas fa-save me-2"></i>Update Profile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACTIVE SUBSCRIPTIONS -->
+                <div class="profile-card">
+                    <h5><i class="fas fa-calendar-check text-danger me-2"></i>My Subscriptions</h5>
+                    <div id="subscriptionsList">
+                        <div class="text-center p-3">
+                            <i class="fas fa-spinner fa-spin text-danger"></i>
+                            <p class="text-muted mt-2 small">Loading subscriptions...</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+    <p>Copyright @ <span>FoodScribe</span> © 2024</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    const API = 'http://localhost:8080';
+    const userId = 1;
+
+    async function loadProfile() {
+        try {
+            // Load orders count
+            const ordersRes = await fetch(`${API}/api/order/user/${userId}`);
+            const orders = await ordersRes.json();
+            document.getElementById('totalOrders').innerText = orders.length;
+
+            // Load subscriptions
+            const subsRes = await fetch(`${API}/api/subscription/user/${userId}`);
+            const subs = await subsRes.json();
+            document.getElementById('totalSubs').innerText = subs.length;
+
+            // Display subscriptions
+            const subsList = document.getElementById('subscriptionsList');
+            if (subs.length === 0) {
+                subsList.innerHTML = `
+                    <div class="text-center p-3 text-muted">
+                        <i class="fas fa-calendar-times fa-2x mb-2"></i>
+                        <p>No active subscriptions.</p>
+                        <a href="subscription.html" style="color:#e74c3c">Subscribe Now</a>
+                    </div>`;
+            } else {
+                subsList.innerHTML = subs.map(sub => `
+                    <div class="subscription-card">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6>
+                                    <i class="fas fa-calendar-check me-2"></i>
+                                    ${sub.subscriptionPeriod.toUpperCase()} PLAN
+                                </h6>
+                                <p>Sub # ${sub.orderNumber}</p>
+                                <p>Valid till: ${new Date(sub.endDate).toLocaleDateString()}</p>
+                            </div>
+                            <div class="text-end">
+                                <span class="badge-active">${sub.status}</span>
+                                ${sub.status === 'Active' ? `
+                                <br><button onclick="cancelSub(${sub.id})"
+                                    style="background:rgba(255,255,255,0.2);color:white;
+                                           border:1px solid white;padding:4px 10px;
+                                           border-radius:5px;font-size:12px;
+                                           cursor:pointer;margin-top:8px;">
+                                    Cancel
+                                </button>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Set dummy profile data
+            // In real app this would come from a GET /api/user/{id} endpoint
+            const email = localStorage.getItem('userEmail') || 'user@example.com';
+            document.getElementById('email').value = email;
+            document.getElementById('profileEmail').innerText = email;
+            document.getElementById('profileName').innerText = 'My Profile';
+            document.getElementById('regDate').value = new Date().toLocaleDateString();
+
+        } catch (error) {
+            console.error('Error loading profile:', error);
+        }
+    }
+
+    async function cancelSub(subId) {
+        if (!confirm('Are you sure you want to cancel this subscription?')) return;
+        try {
+            const res = await fetch(`${API}/api/subscription/cancel/${subId}`, {
+                method: 'PUT'
+            });
+            const result = await res.text();
+            alert(result);
+            loadProfile();
+        } catch (e) {
+            alert('Something went wrong!');
+        }
+    }
+
+    function updateProfile() {
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        if (!firstName || !lastName) {
+            showAlert('Please enter your name!', 'danger');
+            return;
+        }
+        document.getElementById('profileName').innerText = firstName + ' ' + lastName;
+        document.getElementById('avatarIcon').innerHTML =
+            `<span style="font-size:36px;font-weight:700">${firstName[0]}${lastName[0]}</span>`;
+        showAlert('Profile updated successfully!', 'success');
+    }
+
+    function showAlert(msg, type) {
+        const el = document.getElementById('alertMsg');
+        el.className = `alert alert-${type}`;
+        el.innerText = msg;
+        el.style.display = 'block';
+        setTimeout(() => el.style.display = 'none', 3000);
+    }
+
+    function logout() {
+        localStorage.removeItem('userEmail');
+        window.location.href = 'login.html';
+    }
+
+    loadProfile();
+</script>
+
+</body>
+</html>

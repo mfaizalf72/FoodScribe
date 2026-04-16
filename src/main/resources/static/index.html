@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodScribe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body { font-family: 'Segoe UI', sans-serif; }
+
+        /* NAVBAR */
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 30px;
+        }
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: 700;
+            color: #e74c3c !important;
+        }
+        .nav-link {
+            color: #333 !important;
+            font-weight: 500;
+            margin: 0 8px;
+        }
+        .nav-link:hover { color: #e74c3c !important; }
+
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+            url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1400') center/cover no-repeat;
+            height: 550px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        .hero h1 {
+            font-size: 58px;
+            font-weight: 800;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        .hero p { font-size: 18px; margin: 15px 0 30px; }
+        .hero .search-box {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .hero .search-box input {
+            padding: 12px 20px;
+            border-radius: 5px;
+            border: none;
+            width: 320px;
+            font-size: 15px;
+        }
+        .hero .search-box button {
+            padding: 12px 28px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .hero .search-box button:hover { background: #c0392b; }
+
+        /* HOW IT WORKS */
+        .how-it-works {
+            background: #f8f9fa;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .how-it-works h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .step-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px 20px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        .step-card:hover { transform: translateY(-5px); }
+        .step-card i {
+            font-size: 40px;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        .step-card h5 {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .step-card p { color: #777; font-size: 14px; }
+
+        /* FEATURES */
+        .features {
+            padding: 60px 0;
+            text-align: center;
+        }
+        .features h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .features p.subtitle {
+            color: #777;
+            margin-bottom: 40px;
+        }
+        .feature-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 30px 20px;
+            transition: all 0.3s;
+        }
+        .feature-card:hover {
+            border-color: #e74c3c;
+            box-shadow: 0 5px 20px rgba(231,76,60,0.15);
+        }
+        .feature-card i {
+            font-size: 36px;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        .feature-card h5 { font-weight: 700; color: #333; }
+        .feature-card p { color: #777; font-size: 14px; }
+
+        /* FOOTER */
+        .footer {
+            background: #222;
+            color: #aaa;
+            text-align: center;
+            padding: 25px;
+            font-size: 14px;
+        }
+        .footer span { color: #e74c3c; }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">FoodScribe</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="menu.html">Food Menu</a></li>
+                <li class="nav-item"><a class="nav-link" href="subscription.html">Subscription</a></li>
+                <li class="nav-item"><a class="nav-link" href="signup.html">Sign Up</a></li>
+                <li class="nav-item"><a class="nav-link" href="login.html">Sign In</a></li>
+                <li class="nav-item"><a class="nav-link" href="track.html">Track Order</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">My Account</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="profile.html">My Profile</a></li>
+                        <li><a class="dropdown-item" href="orders.html">My Orders</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#" onclick="logout()">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO SECTION -->
+<div class="hero">
+    <div>
+        <h1>Order Delivery</h1>
+        <p>Find your favourite delicious hot food!</p>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="I would like to eat....">
+            <button onclick="searchFood()">Search food</button>
+        </div>
+        <div class="mt-4 d-flex justify-content-center gap-5">
+            <div>
+                <i class="fas fa-map-marker-alt fa-2x"></i>
+                <p class="mt-2">Choose Location</p>
+            </div>
+            <div>
+                <i class="fas fa-utensils fa-2x"></i>
+                <p class="mt-2">Order Food</p>
+            </div>
+            <div>
+                <i class="fas fa-truck fa-2x"></i>
+                <p class="mt-2">Delivery</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works">
+    <div class="container">
+        <h2>How It Works</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="step-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h5>Choose Location</h5>
+                    <p>Select your delivery location and find restaurants near you.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card">
+                    <i class="fas fa-utensils"></i>
+                    <h5>Order Food</h5>
+                    <p>Browse the menu and choose your favourite dishes.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card">
+                    <i class="fas fa-truck"></i>
+                    <h5>Fast Delivery</h5>
+                    <p>Get your food delivered hot and fresh to your doorstep.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+    <div class="container">
+        <h2>Why Choose FoodScribe?</h2>
+        <p class="subtitle">We offer the best food subscription experience</p>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-clipboard-list"></i>
+                    <h5>Simplified Ordering</h5>
+                    <p>Order your favourite food in just a few clicks.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-calendar-check"></i>
+                    <h5>One Subscription</h5>
+                    <p>Subscribe weekly, monthly or yearly for all your orders.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-tag"></i>
+                    <h5>No Extra Charges</h5>
+                    <p>No hidden fees. Pay only for what you subscribe to.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h5>Real Time Tracking</h5>
+                    <p>Track your order from preparation to delivery.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-star"></i>
+                    <h5>Enhanced Experience</h5>
+                    <p>Enjoy a seamless and user friendly food ordering experience.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <i class="fas fa-headset"></i>
+                    <h5>Customer Support</h5>
+                    <p>24/7 support to help you with any queries or issues.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+    <p>Copyright @ <span>FoodScribe</span> © 2024</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    function searchFood() {
+        const query = document.getElementById('searchInput').value;
+        if (query.trim() === '') {
+            alert('Please enter a food item to search!');
+            return;
+        }
+        window.location.href = `menu.html?search=${query}`;
+    }
+
+    function logout() {
+        localStorage.removeItem('user');
+        window.location.href = 'login.html';
+    }
+</script>
+
+</body>
+</html>

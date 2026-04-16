@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodScribe - Sales Reports</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; }
+        .sidebar { width: 250px; background: linear-gradient(180deg, #1a1a2e, #16213e);
+            min-height: 100vh; position: fixed; top: 0; left: 0; z-index: 100; }
+        .sidebar-brand { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .sidebar-brand h4 { color: #e74c3c; font-weight: 800; font-size: 20px; margin: 0; }
+        .sidebar-brand p { color: rgba(255,255,255,0.5); font-size: 12px; margin: 0; }
+        .menu-label { color: rgba(255,255,255,0.3); font-size: 11px; font-weight: 700;
+            letter-spacing: 1px; padding: 10px 20px 5px; text-transform: uppercase; }
+        .menu-link { display: flex; align-items: center; padding: 12px 20px;
+            color: rgba(255,255,255,0.7); text-decoration: none; transition: all 0.2s;
+            gap: 12px; font-size: 14px; }
+        .menu-link:hover, .menu-link.active { background: rgba(231,76,60,0.2);
+            color: #e74c3c; border-left: 3px solid #e74c3c; }
+        .menu-link i { width: 20px; font-size: 15px; }
+        .main-content { margin-left: 250px; min-height: 100vh; }
+        .topbar { background: white; padding: 15px 25px; display: flex;
+            justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        .topbar h5 { font-weight: 700; color: #333; margin: 0; }
+        .admin-badge { background: #e74c3c; color: white; padding: 6px 15px;
+            border-radius: 20px; font-size: 13px; font-weight: 600; }
+        .btn-logout { background: none; border: 1px solid #e74c3c; color: #e74c3c;
+            padding: 6px 15px; border-radius: 5px; font-size: 13px;
+            cursor: pointer; margin-left: 10px; }
+        .btn-logout:hover { background: #e74c3c; color: white; }
+        .page-content { padding: 25px; }
+        .content-card { background: white; border-radius: 12px; padding: 25px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08); margin-bottom: 25px; }
+        .content-card h5 { font-weight: 700; color: #333; margin-bottom: 20px;
+            padding-bottom: 10px; border-bottom: 2px solid #f0f0f0; }
+        .form-control, .form-select { border-radius: 6px; padding: 12px 15px;
+            border: 1px solid #ddd; font-size: 14px; }
+        .form-control:focus, .form-select:focus { border-color: #e74c3c;
+            box-shadow: 0 0 0 0.2rem rgba(231,76,60,0.15); }
+        .btn-report { background: #e74c3c; color: white; border: none;
+            padding: 12px 25px; border-radius: 6px; font-weight: 600;
+            cursor: pointer; font-size: 14px; }
+        .btn-report:hover { background: #c0392b; }
+        .stat-card { background: white; border-radius: 12px; padding: 20px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08); text-align: center; }
+        .stat-card h3 { font-size: 32px; font-weight: 800; color: #e74c3c; }
+        .stat-card p { color: #999; font-size: 14px; margin: 0; }
+        .table th { background: #f8f9fa; color: #666; font-weight: 600;
+            font-size: 13px; border: none; }
+        .table td { font-size: 14px; vertical-align: middle; }
+        .radio-group label { margin-right: 20px; cursor: pointer; font-size: 14px; }
+        .radio-group input { margin-right: 5px; accent-color: #e74c3c; }
+        .footer-text { text-align: center; padding: 20px; color: #999; font-size: 13px; }
+        .footer-text span { color: #e74c3c; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="sidebar-brand">
+        <h4>🍕 FoodScribe</h4>
+        <p>Admin Panel</p>
+    </div>
+    <div class="sidebar-menu">
+        <div class="menu-label">Main</div>
+        <a href="admin-dashboard.html" class="menu-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="admin-users.html" class="menu-link"><i class="fas fa-users"></i> Reg Users</a>
+        <div class="menu-label">Food</div>
+        <a href="admin-categories.html" class="menu-link"><i class="fas fa-list"></i> Food Category</a>
+        <a href="admin-food.html" class="menu-link"><i class="fas fa-utensils"></i> Food Menu</a>
+        <div class="menu-label">Orders</div>
+        <a href="admin-orders.html" class="menu-link"><i class="fas fa-shopping-bag"></i> Orders</a>
+        <a href="admin-subscriptions.html" class="menu-link"><i class="fas fa-calendar-check"></i> Subscriptions</a>
+        <div class="menu-label">Reports</div>
+        <a href="admin-reports.html" class="menu-link active"><i class="fas fa-chart-bar"></i> Reports</a>
+        <a href="admin-search.html" class="menu-link"><i class="fas fa-search"></i> Search</a>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="topbar">
+        <h5><i class="fas fa-chart-bar text-danger me-2"></i>Sales Reports</h5>
+        <div>
+            <span class="admin-badge"><i class="fas fa-user-shield me-1"></i>Admin User</span>
+            <button class="btn-logout" onclick="logout()"><i class="fas fa-sign-out-alt me-1"></i>Log out</button>
+        </div>
+    </div>
+
+    <div class="page-content">
+
+        <!-- FILTER FORM -->
+        <div class="content-card">
+            <h5><i class="fas fa-filter text-danger me-2"></i>Between Dates Sales Reports</h5>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">From Date</label>
+                    <input type="date" class="form-control" id="fromDate">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">To Date</label>
+                    <input type="date" class="form-control" id="toDate">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Request Type</label>
+                    <div class="radio-group mt-2">
+                        <label>
+                            <input type="radio" name="reportType" value="month" checked> Month wise
+                        </label>
+                        <label>
+                            <input type="radio" name="reportType" value="year"> Year wise
+                        </label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button class="btn-report" onclick="generateReport()">
+                        <i class="fas fa-chart-bar me-2"></i>Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUMMARY STATS -->
+        <div class="row g-3 mb-4" id="statsRow" style="display:none;">
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <h3 id="reportTotalOrders">0</h3>
+                    <p>Total Orders</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <h3 id="reportTotalSubs">0</h3>
+                    <p>Total Subscriptions</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <h3 id="reportTotalUsers">0</h3>
+                    <p>Total Users</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <h3 id="reportTotalFood">0</h3>
+                    <p>Total Food Items</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- REPORT TABLE -->
+        <div class="content-card" id="reportCard" style="display:none;">
+            <h5><i class="fas fa-table text-danger me-2"></i>
+                Sales Report — <span id="reportTitle"></span>
+            </h5>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>S.NO</th>
+                        <th>Order Number</th>
+                        <th>Order Date</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody id="reportTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="footer-text">Copyright @ <span>FoodScribe</span> © 2024</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    const API = 'http://localhost:8080';
+    if (!localStorage.getItem('adminLoggedIn')) window.location.href = 'admin-login.html';
+
+    async function generateReport() {
+        const fromDate = document.getElementById('fromDate').value;
+        const toDate = document.getElementById('toDate').value;
+
+        if (!fromDate || !toDate) {
+            alert('Please select both from and to dates!');
+            return;
+        }
+
+        if (new Date(fromDate) > new Date(toDate)) {
+            alert('From date cannot be after To date!');
+            return;
+        }
+
+        try {
+            // Fetch all data
+            const [ordersRes, subsRes, usersRes, foodRes] = await Promise.all([
+                fetch(`${API}/api/order/all`),
+                fetch(`${API}/api/subscription/all`),
+                fetch(`${API}/api/user/all`),
+                fetch(`${API}/api/food/all`)
+            ]);
+
+            const orders = await ordersRes.json();
+            const subs = await subsRes.json();
+            const users = await usersRes.json();
+            const foods = await foodRes.json();
+
+            // Filter orders by date range
+            const from = new Date(fromDate);
+            const to = new Date(toDate);
+            to.setHours(23, 59, 59);
+
+            const filteredOrders = orders.filter(o => {
+                const orderDate = new Date(o.orderTime);
+                return orderDate >= from && orderDate <= to;
+            });
+
+            // Show stats
+            document.getElementById('reportTotalOrders').innerText = filteredOrders.length;
+            document.getElementById('reportTotalSubs').innerText = subs.length;
+            document.getElementById('reportTotalUsers').innerText = users.length;
+            document.getElementById('reportTotalFood').innerText = foods.length;
+            document.getElementById('statsRow').style.display = 'flex';
+
+            // Show report table
+            const reportType = document.querySelector('input[name="reportType"]:checked').value;
+            document.getElementById('reportTitle').innerText =
+                `${fromDate} to ${toDate} (${reportType === 'month' ? 'Month Wise' : 'Year Wise'})`;
+
+            const tbody = document.getElementById('reportTable');
+            if (filteredOrders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted">No orders found in this date range.</td></tr>';
+            } else {
+                tbody.innerHTML = filteredOrders.map((o, i) => `
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td><strong>${o.orderNumber}</strong></td>
+                        <td>${new Date(o.orderTime).toLocaleString()}</td>
+                        <td><span style="background:#d1e7dd;color:#0a3622;padding:4px 10px;
+                            border-radius:20px;font-size:12px;">Order Placed</span></td>
+                    </tr>
+                `).join('');
+            }
+
+            document.getElementById('reportCard').style.display = 'block';
+
+        } catch (error) {
+            alert('Error generating report. Please try again!');
+        }
+    }
+
+    function logout() {
+        localStorage.removeItem('adminLoggedIn');
+        window.location.href = 'admin-login.html';
+    }
+</script>
+</body>
+</html>

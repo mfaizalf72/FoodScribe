@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodScribe - Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; }
+
+        .navbar { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 15px 30px; }
+        .navbar-brand { font-size: 24px; font-weight: 700; color: #e74c3c !important; }
+        .nav-link { color: #333 !important; font-weight: 500; margin: 0 8px; }
+        .nav-link:hover { color: #e74c3c !important; }
+
+        .page-header {
+            background: #e74c3c;
+            color: white;
+            padding: 15px 30px;
+            font-size: 14px;
+        }
+        .page-header a { color: white; text-decoration: none; }
+        .page-header a:hover { text-decoration: underline; }
+
+        .signup-section { padding: 50px 0; }
+
+        .signup-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 3px 20px rgba(0,0,0,0.08);
+        }
+
+        .signup-card h4 {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .form-control {
+            border-radius: 6px;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+        .form-control:focus {
+            border-color: #e74c3c;
+            box-shadow: 0 0 0 0.2rem rgba(231,76,60,0.15);
+        }
+
+        .btn-register {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-register:hover { background: #c0392b; }
+
+        .btn-login {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-login:hover { background: #111; }
+
+        .info-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 3px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        .info-card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            height: 200px;
+            object-fit: cover;
+        }
+        .info-card h5 { font-weight: 700; color: #333; }
+        .info-card p { color: #777; font-size: 14px; }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            border-radius: 6px;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            border-radius: 6px;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .footer { background: #222; color: #aaa; text-align: center; padding: 25px; font-size: 14px; }
+        .footer span { color: #e74c3c; }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">FoodScribe</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="menu.html">Food Menu</a></li>
+                <li class="nav-item"><a class="nav-link" href="subscription.html">Subscription</a></li>
+                <li class="nav-item"><a class="nav-link active" href="signup.html">Sign Up</a></li>
+                <li class="nav-item"><a class="nav-link" href="login.html">Sign In</a></li>
+                <li class="nav-item"><a class="nav-link" href="track.html">Track Order</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">My Account</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="profile.html">My Profile</a></li>
+                        <li><a class="dropdown-item" href="orders.html">My Orders</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#" onclick="logout()">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+    <a href="index.html">Home</a> / Signup Page / <strong>Signup</strong>
+</div>
+
+<!-- SIGNUP SECTION -->
+<section class="signup-section">
+    <div class="container">
+        <div class="row g-4">
+
+            <!-- FORM -->
+            <div class="col-md-8">
+                <div class="signup-card">
+                    <h4>Create Your Account</h4>
+
+                    <div class="alert-success" id="successMsg"></div>
+                    <div class="alert-danger" id="errorMsg"></div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="firstName"
+                                   placeholder="First Name">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="lastName"
+                                   placeholder="Last Name">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="email" class="form-control" id="email"
+                                   placeholder="Email Address">
+                            <small class="text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="mobileNumber"
+                                   placeholder="Mobile Number">
+                            <small class="text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="password" class="form-control" id="password"
+                                   placeholder="Password">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="password" class="form-control" id="confirmPassword"
+                                   placeholder="Repeat Password">
+                        </div>
+                        <div class="col-12 mt-3">
+                            <button class="btn-register me-3" onclick="register()">Register</button>
+                            <button class="btn-login" onclick="window.location.href='login.html'">Login</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INFO CARD -->
+            <div class="col-md-4">
+                <div class="info-card">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400" alt="Food">
+                    <h5>Registration is fast, easy, and free.</h5>
+                    <hr>
+                    <h6 class="mt-3">Contact Customer Support</h6>
+                    <p>If you're looking for more help or have a question</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+    <p>Copyright @ <span>FoodScribe</span> © 2024</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    const API = 'http://localhost:8080';
+
+    async function register() {
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const mobileNumber = document.getElementById('mobileNumber').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+        // Validation
+        if (!firstName || !lastName || !email || !mobileNumber || !password) {
+            showError('Please fill in all fields!');
+            return;
+        }
+        if (password !== confirmPassword) {
+            showError('Passwords do not match!');
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API}/api/user/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ firstName, lastName, email, mobileNumber, password })
+            });
+
+            const result = await response.text();
+
+            if (result === 'User registered successfully!') {
+                showSuccess('Account created successfully! Redirecting to login...');
+                setTimeout(() => window.location.href = 'login.html', 2000);
+            } else {
+                showError(result);
+            }
+        } catch (error) {
+            showError('Something went wrong. Please try again!');
+        }
+    }
+
+    function showSuccess(msg) {
+        const el = document.getElementById('successMsg');
+        el.innerText = msg;
+        el.style.display = 'block';
+        document.getElementById('errorMsg').style.display = 'none';
+    }
+
+    function showError(msg) {
+        const el = document.getElementById('errorMsg');
+        el.innerText = msg;
+        el.style.display = 'block';
+        document.getElementById('successMsg').style.display = 'none';
+    }
+
+    function logout() {
+        localStorage.removeItem('user');
+        window.location.href = 'login.html';
+    }
+</script>
+
+</body>
+</html>

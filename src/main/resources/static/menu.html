@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodScribe - Food Menu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; }
+
+        .navbar { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 15px 30px; }
+        .navbar-brand { font-size: 24px; font-weight: 700; color: #e74c3c !important; }
+        .nav-link { color: #333 !important; font-weight: 500; margin: 0 8px; }
+        .nav-link:hover { color: #e74c3c !important; }
+
+        .page-header { background: #e74c3c; color: white; padding: 15px 30px; font-size: 14px; }
+        .page-header a { color: white; text-decoration: none; }
+
+        /* BANNER */
+        .menu-banner {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+            url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1400') center/cover;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .menu-banner h2 { color: white; font-size: 36px; font-weight: 700; }
+
+        .menu-section { padding: 40px 0; }
+
+        /* SIDEBAR */
+        .sidebar-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+        .sidebar-title {
+            background: #e74c3c;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .search-input:focus { outline: none; border-color: #e74c3c; }
+        .search-btn {
+            width: 100%;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .category-item {
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #333;
+            transition: all 0.2s;
+        }
+        .category-item:hover { background: #ffe5e5; color: #e74c3c; }
+        .category-item.active { background: #e74c3c; color: white; }
+
+        /* FOOD CARDS */
+        .food-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            height: 100%;
+        }
+        .food-card:hover { transform: translateY(-5px); }
+        .food-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .food-card-body { padding: 15px; }
+        .food-card-body h6 { font-weight: 700; color: #333; margin-bottom: 5px; }
+        .food-card-body p { color: #777; font-size: 13px; margin-bottom: 10px; }
+        .food-price { color: #e74c3c; font-weight: 700; font-size: 16px; }
+        .btn-order {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .btn-order:hover { background: #c0392b; }
+
+        /* ORDER MODAL */
+        .modal-header { background: #e74c3c; color: white; }
+        .modal-header .btn-close { filter: invert(1); }
+        .btn-confirm {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .footer { background: #222; color: #aaa; text-align: center; padding: 25px; font-size: 14px; }
+        .footer span { color: #e74c3c; }
+
+        .loading { text-align: center; padding: 40px; color: #777; }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">FoodScribe</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link active" href="menu.html">Food Menu</a></li>
+                <li class="nav-item"><a class="nav-link" href="subscription.html">Subscription</a></li>
+                <li class="nav-item"><a class="nav-link" href="signup.html">Sign Up</a></li>
+                <li class="nav-item"><a class="nav-link" href="login.html">Sign In</a></li>
+                <li class="nav-item"><a class="nav-link" href="track.html">Track Order</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">My Account</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="profile.html">My Profile</a></li>
+                        <li><a class="dropdown-item" href="orders.html">My Orders</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#" onclick="logout()">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+    <a href="index.html">Home</a> / <strong>Food Menu</strong>
+</div>
+
+<!-- BANNER -->
+<div class="menu-banner">
+    <h2>Find Your Delicious Foods Here..</h2>
+</div>
+
+<!-- MENU SECTION -->
+<section class="menu-section">
+    <div class="container">
+        <div class="row">
+
+            <!-- SIDEBAR -->
+            <div class="col-md-3">
+                <div class="sidebar-card">
+                    <div class="sidebar-title">
+                        <span>Search Food</span>
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search your favorite food">
+                    <button class="search-btn" onclick="searchFood()">Search</button>
+                </div>
+
+                <div class="sidebar-card">
+                    <div class="sidebar-title">
+                        <span>Food Categories</span>
+                        <i class="fas fa-list"></i>
+                    </div>
+                    <div id="categoryList">
+                        <div class="category-item active" onclick="loadAllFood(this)">All</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOOD ITEMS -->
+            <div class="col-md-9">
+                <div id="foodGrid" class="row g-3">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin fa-2x"></i>
+                        <p class="mt-2">Loading food items...</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ORDER MODAL -->
+<div class="modal fade" id="orderModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Place Order</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-3">You are ordering: <strong id="orderFoodName"></strong></p>
+                <input type="hidden" id="orderFoodId">
+                <div class="mb-3">
+                    <label class="form-label">Flat / Building No</label>
+                    <input type="text" class="form-control" id="flatNo" placeholder="Flat or Building Number">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Street Name</label>
+                    <input type="text" class="form-control" id="streetName" placeholder="Street Name">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Area</label>
+                    <input type="text" class="form-control" id="area" placeholder="Area">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Landmark</label>
+                    <input type="text" class="form-control" id="landmark" placeholder="Landmark">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">City</label>
+                    <input type="text" class="form-control" id="city" placeholder="City">
+                </div>
+                <div id="orderMsg" style="display:none;" class="alert"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn-confirm" onclick="confirmOrder()">Place Order</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <p>Copyright @ <span>FoodScribe</span> © 2024</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    const API = 'http://localhost:8080';
+    let allFoods = [];
+
+    // Food images array for variety
+    const foodImages = [
+        'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400',
+        'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400',
+        'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400',
+        'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400',
+        'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400',
+        'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=400'
+    ];
+
+    // Load categories on page load
+    async function loadCategories() {
+        try {
+            const response = await fetch(`${API}/api/category/all`);
+            const categories = await response.json();
+            const list = document.getElementById('categoryList');
+            categories.forEach(cat => {
+                const div = document.createElement('div');
+                div.className = 'category-item';
+                div.innerText = cat.categoryName;
+                div.onclick = () => loadFoodByCategory(cat.id, div);
+                list.appendChild(div);
+            });
+        } catch (error) {
+            console.error('Error loading categories:', error);
+        }
+    }
+
+    // Load all food
+    async function loadAllFood(el) {
+        setActiveCategory(el);
+        try {
+            const response = await fetch(`${API}/api/food/all`);
+            allFoods = await response.json();
+            displayFood(allFoods);
+        } catch (error) {
+            document.getElementById('foodGrid').innerHTML =
+                '<p class="text-danger">Error loading food items.</p>';
+        }
+    }
+
+    // Load food by category
+    async function loadFoodByCategory(categoryId, el) {
+        setActiveCategory(el);
+        try {
+            const response = await fetch(`${API}/api/food/category/${categoryId}`);
+            const foods = await response.json();
+            displayFood(foods);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    // Display food cards
+    function displayFood(foods) {
+        const grid = document.getElementById('foodGrid');
+        if (foods.length === 0) {
+            grid.innerHTML = '<p class="text-muted text-center mt-4">No food items found.</p>';
+            return;
+        }
+        grid.innerHTML = foods.map((food, index) => `
+            <div class="col-md-4">
+                <div class="food-card">
+                    <img src="${food.imageUrl || foodImages[index % foodImages.length]}" alt="${food.itemName}">
+                    <div class="food-card-body">
+                        <h6>${food.itemName}</h6>
+                        <p>${food.itemDescription || 'Delicious food item'}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="food-price">₹${food.itemPrice}</span>
+                        </div>
+                        <button class="btn-order" onclick="openOrderModal(${food.id}, '${food.itemName}')">
+                            <i class="fas fa-shopping-cart me-1"></i> Order Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Search food
+    function searchFood() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        const filtered = allFoods.filter(f =>
+            f.itemName.toLowerCase().includes(query)
+        );
+        displayFood(filtered);
+    }
+
+    // Set active category
+    function setActiveCategory(el) {
+        document.querySelectorAll('.category-item').forEach(i => i.classList.remove('active'));
+        el.classList.add('active');
+    }
+
+    // Open order modal
+    function openOrderModal(foodId, foodName) {
+        const user = localStorage.getItem('userEmail');
+        if (!user) {
+            alert('Please login first to place an order!');
+            window.location.href = 'login.html';
+            return;
+        }
+        document.getElementById('orderFoodId').value = foodId;
+        document.getElementById('orderFoodName').innerText = foodName;
+        document.getElementById('orderMsg').style.display = 'none';
+        new bootstrap.Modal(document.getElementById('orderModal')).show();
+    }
+
+    // Confirm order
+    async function confirmOrder() {
+        const foodId = document.getElementById('orderFoodId').value;
+        const flatNo = document.getElementById('flatNo').value.trim();
+        const streetName = document.getElementById('streetName').value.trim();
+        const area = document.getElementById('area').value.trim();
+        const landmark = document.getElementById('landmark').value.trim();
+        const city = document.getElementById('city').value.trim();
+
+        if (!flatNo || !streetName || !area || !city) {
+            showOrderMsg('Please fill in all address fields!', 'danger');
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API}/api/order/place`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userId: 1,
+                    foodId: parseInt(foodId),
+                    flatBuildingNo: flatNo,
+                    streetName, area, landmark, city
+                })
+            });
+
+            const result = await response.text();
+            showOrderMsg(result, 'success');
+            setTimeout(() => {
+                bootstrap.Modal.getInstance(document.getElementById('orderModal')).hide();
+                window.location.href = 'orders.html';
+            }, 2000);
+        } catch (error) {
+            showOrderMsg('Something went wrong!', 'danger');
+        }
+    }
+
+    function showOrderMsg(msg, type) {
+        const el = document.getElementById('orderMsg');
+        el.className = `alert alert-${type}`;
+        el.innerText = msg;
+        el.style.display = 'block';
+    }
+
+    function logout() {
+        localStorage.removeItem('userEmail');
+        window.location.href = 'login.html';
+    }
+
+    // Init
+    loadCategories();
+    loadAllFood(document.querySelector('.category-item'));
+</script>
+
+</body>
+</html>

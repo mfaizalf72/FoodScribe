@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodScribe - Orders</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; }
+        .sidebar { width: 250px; background: linear-gradient(180deg, #1a1a2e, #16213e);
+            min-height: 100vh; position: fixed; top: 0; left: 0; z-index: 100; }
+        .sidebar-brand { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .sidebar-brand h4 { color: #e74c3c; font-weight: 800; font-size: 20px; margin: 0; }
+        .sidebar-brand p { color: rgba(255,255,255,0.5); font-size: 12px; margin: 0; }
+        .menu-label { color: rgba(255,255,255,0.3); font-size: 11px; font-weight: 700;
+            letter-spacing: 1px; padding: 10px 20px 5px; text-transform: uppercase; }
+        .menu-link { display: flex; align-items: center; padding: 12px 20px;
+            color: rgba(255,255,255,0.7); text-decoration: none; transition: all 0.2s;
+            gap: 12px; font-size: 14px; }
+        .menu-link:hover, .menu-link.active { background: rgba(231,76,60,0.2);
+            color: #e74c3c; border-left: 3px solid #e74c3c; }
+        .menu-link i { width: 20px; font-size: 15px; }
+        .main-content { margin-left: 250px; min-height: 100vh; }
+        .topbar { background: white; padding: 15px 25px; display: flex;
+            justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        .topbar h5 { font-weight: 700; color: #333; margin: 0; }
+        .admin-badge { background: #e74c3c; color: white; padding: 6px 15px;
+            border-radius: 20px; font-size: 13px; font-weight: 600; }
+        .btn-logout { background: none; border: 1px solid #e74c3c; color: #e74c3c;
+            padding: 6px 15px; border-radius: 5px; font-size: 13px;
+            cursor: pointer; margin-left: 10px; }
+        .btn-logout:hover { background: #e74c3c; color: white; }
+        .page-content { padding: 25px; }
+        .content-card { background: white; border-radius: 12px; padding: 25px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08); }
+        .content-card h5 { font-weight: 700; color: #333; margin-bottom: 20px;
+            padding-bottom: 10px; border-bottom: 2px solid #f0f0f0; }
+        .table th { background: #f8f9fa; color: #666; font-weight: 600;
+            font-size: 13px; border: none; }
+        .table td { font-size: 14px; vertical-align: middle; }
+        .btn-view { background: #e74c3c; color: white; border: none;
+            padding: 5px 14px; border-radius: 5px; font-size: 12px;
+            font-weight: 600; cursor: pointer; }
+        .btn-update { background: #3498db; color: white; border: none;
+            padding: 5px 14px; border-radius: 5px; font-size: 12px;
+            font-weight: 600; cursor: pointer; margin-left: 5px; }
+        .modal-header { background: #e74c3c; color: white; }
+        .modal-header .btn-close { filter: invert(1); }
+        .btn-confirm { background: #e74c3c; color: white; border: none;
+            padding: 10px 25px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .footer-text { text-align: center; padding: 20px; color: #999; font-size: 13px; }
+        .footer-text span { color: #e74c3c; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="sidebar-brand">
+        <h4>🍕 FoodScribe</h4>
+        <p>Admin Panel</p>
+    </div>
+    <div class="sidebar-menu">
+        <div class="menu-label">Main</div>
+        <a href="admin-dashboard.html" class="menu-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="admin-users.html" class="menu-link"><i class="fas fa-users"></i> Reg Users</a>
+        <div class="menu-label">Food</div>
+        <a href="admin-categories.html" class="menu-link"><i class="fas fa-list"></i> Food Category</a>
+        <a href="admin-food.html" class="menu-link"><i class="fas fa-utensils"></i> Food Menu</a>
+        <div class="menu-label">Orders</div>
+        <a href="admin-orders.html" class="menu-link active"><i class="fas fa-shopping-bag"></i> Orders</a>
+        <a href="admin-subscriptions.html" class="menu-link"><i class="fas fa-calendar-check"></i> Subscriptions</a>
+        <div class="menu-label">Reports</div>
+        <a href="admin-reports.html" class="menu-link"><i class="fas fa-chart-bar"></i> Reports</a>
+        <a href="admin-search.html" class="menu-link"><i class="fas fa-search"></i> Search</a>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="topbar">
+        <h5><i class="fas fa-shopping-bag text-danger me-2"></i>All Orders</h5>
+        <div>
+            <span class="admin-badge"><i class="fas fa-user-shield me-1"></i>Admin User</span>
+            <button class="btn-logout" onclick="logout()"><i class="fas fa-sign-out-alt me-1"></i>Log out</button>
+        </div>
+    </div>
+
+    <div class="page-content">
+        <div class="content-card">
+            <h5><i class="fas fa-shopping-bag text-danger me-2"></i>Detail of All Orders Received</h5>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>S.NO</th>
+                        <th>Order Number</th>
+                        <th>Order Date</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="ordersTable">
+                    <tr><td colspan="4" class="text-center text-muted">
+                        <i class="fas fa-spinner fa-spin me-2"></i>Loading...
+                    </td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="footer-text">Copyright @ <span>FoodScribe</span> © 2024</div>
+</div>
+
+<!-- UPDATE STATUS MODAL -->
+<div class="modal fade" id="statusModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Order Status</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Order: <strong id="modalOrderNo"></strong></p>
+                <input type="hidden" id="modalOrderNum">
+                <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <select class="form-control" id="newStatus">
+                        <option value="Order Placed">Order Placed</option>
+                        <option value="Food Being Prepared">Food Being Prepared</option>
+                        <option value="Food Pickup">Food Pickup</option>
+                        <option value="Out for Delivery">Out for Delivery</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Remark</label>
+                    <input type="text" class="form-control" id="newRemark" placeholder="Enter remark">
+                </div>
+                <div id="statusMsg" style="display:none;" class="alert"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn-confirm" onclick="updateStatus()">Update Status</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    const API = 'http://localhost:8080';
+    if (!localStorage.getItem('adminLoggedIn')) window.location.href = 'admin-login.html';
+
+    async function loadOrders() {
+        const res = await fetch(`${API}/api/order/all`);
+        const orders = await res.json();
+        const tbody = document.getElementById('ordersTable');
+        if (orders.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted">No orders found.</td></tr>';
+            return;
+        }
+        tbody.innerHTML = orders.map((o, i) => `
+            <tr>
+                <td>${i + 1}</td>
+                <td><strong>${o.orderNumber}</strong></td>
+                <td>${new Date(o.orderTime).toLocaleString()}</td>
+                <td>
+                    <button class="btn-view" onclick="viewDetails('${o.orderNumber}')">View Details</button>
+                    <button class="btn-update" onclick="openStatusModal('${o.orderNumber}')">Update Status</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function viewDetails(orderNumber) {
+        window.location.href = `admin-search.html?order=${orderNumber}`;
+    }
+
+    function openStatusModal(orderNumber) {
+        document.getElementById('modalOrderNo').innerText = orderNumber;
+        document.getElementById('modalOrderNum').value = orderNumber;
+        document.getElementById('statusMsg').style.display = 'none';
+        new bootstrap.Modal(document.getElementById('statusModal')).show();
+    }
+
+    async function updateStatus() {
+        const orderNumber = document.getElementById('modalOrderNum').value;
+        const status = document.getElementById('newStatus').value;
+        const remark = document.getElementById('newRemark').value.trim();
+
+        if (!remark) {
+            showStatusMsg('Please enter a remark!', 'danger');
+            return;
+        }
+
+        const res = await fetch(
+            `${API}/api/order/status/${orderNumber}?status=${encodeURIComponent(status)}&remark=${encodeURIComponent(remark)}`,
+            { method: 'PUT' }
+        );
+        const result = await res.text();
+        showStatusMsg(result, 'success');
+        setTimeout(() => {
+            bootstrap.Modal.getInstance(document.getElementById('statusModal')).hide();
+            loadOrders();
+        }, 1500);
+    }
+
+    function showStatusMsg(msg, type) {
+        const el = document.getElementById('statusMsg');
+        el.className = `alert alert-${type}`;
+        el.innerText = msg;
+        el.style.display = 'block';
+    }
+
+    function logout() {
+        localStorage.removeItem('adminLoggedIn');
+        window.location.href = 'admin-login.html';
+    }
+
+    loadOrders();
+</script>
+</body>
+</html>
